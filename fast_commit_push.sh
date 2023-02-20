@@ -57,9 +57,9 @@ if $direct; then
 	cd $(git rev-parse --show-toplevel)
 	git add .
 	cd - | echo -n ""
-	echo -e -n $YELLOW"Commit : "
+	echo -e -n $YELLOW"Commit : "$WHITE
 	git commit -m "$message" | sed -n '2p'
-	echo -e -n $YELLOW"\nPush : "
+	echo -e -n $YELLOW"\nPush : "$WHITE
 	git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 	exit 0
 fi
