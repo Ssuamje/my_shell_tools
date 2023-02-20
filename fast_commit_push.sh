@@ -20,7 +20,7 @@ while true; do
 	added=$(git status --porcelain | grep -E '^A' | cut -c 4-)
 	modified=$(git status --porcelain | grep -E '^ M' | cut -c 4-)
 	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
-	echo -e $GREEN "@___Added___@"
+	echo -e $GREEN"@___Added___@"
 	for file in $added; do
 		echo "$file"
 	done
@@ -36,7 +36,7 @@ while true; do
 	done
 	echo -e "@---------------@\n" $RESET
 
-	echo -e $YELLOW "Want to update all changes to current branch? (y/n)"
+	echo -e $YELLOW"Want to update all changes to current branch? (y/n)"
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -62,14 +62,14 @@ cd -
 message=$1
 while true; do
 	clear
-	echo "Message : \"$message\""
-	echo "is it right? (y/n)"
+	echo $CYAN"Message : \"$message\""
+	echo $YELLOW"is it right? (y/n)"
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
 		clear
-		echo -e "Pushing..." $RESET
+		echo -e "Pushing..."
 		break
 	elif [ "$answer" == "n" ]; then
 		clear
@@ -83,9 +83,9 @@ done
 #set commit message
 echo -e -n $GREEN ""
 git commit -m "$message"
-echo -e $YELLOW "Commit success!" $GREEN
+echo -e $YELLOW"Committed!" $GREEN
 
 #get current working branch
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 git remote update
-echo -e -n "$RESET"
+echo -e -n $YELLOW"Push and remote updated!" $RESET
