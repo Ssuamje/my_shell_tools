@@ -17,8 +17,8 @@ fi
 #check git status
 clear
 while true; do
-	added=$(git status --porcelain | grep -E '^A' | cut -c 4-)
-	modified=$(git status --porcelain | grep -E '^ M' | cut -c 4-)
+	added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
+	modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
 	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
 	echo -e $GREEN"@___Added___@"
 	for file in $added; do
@@ -71,7 +71,7 @@ while true; do
 		break
 	elif [ "$answer" == "n" ]; then
 		clear
-		echo "Input commit message you want to change."
+		echo -e $CYAN"Input commit message you want to change."$YELLOW
 		read message
 	else
 		echo "Invalid input. please enter y or n."
@@ -85,4 +85,3 @@ git commit -m "$message" | sed -n '2p'
 #get current working branch
 echo -e -n $YELLOW"Push : "
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
-git remote update
