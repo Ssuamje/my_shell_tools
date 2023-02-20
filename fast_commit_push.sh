@@ -107,6 +107,7 @@ done
 message=$1
 while true; do
 	clear
+	echo -e $WHITE"Branch : \"$(git branch | grep \* | awk '{ print $2 }')\""
 	echo -e $WHITE"Message : \"$message\""
 	echo -e $YELLOW"is it right? (y/n/q to quit)"$WHITE
 	read answer
@@ -139,16 +140,58 @@ cd -
 #check user's decision
 while true; do
 
-	staged=$(git status --porcelain | grep -E '(^A|^M|^D)' | cut -c 4-)
-	unstaged=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | cut -c 4-)
+	staged=$(git status --porcelain | grep -E '(^A|^M|^D)' | tr '\n' ' ') 
+	unstaged=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | tr '\n' ' ')
 	echo -e $GREEN"@________Staged________@"
+	modified=false
+	added=false
+	deleted=false
+	untracked=false
 	for file in $staged; do
-		echo "$file"
+		if [ $file == 'M' ] && ! $modified; then
+			modified=true
+			echo "M"
+			continue
+		fi
+		if [ $file == 'A' ] && ! $added; then
+			added=true
+			echo "A"	 
+			continue
+		fi
+		if [ $file == 'D' ] && ! $deleted; then
+			deleted=true
+			echo "D"	 
+			continue
+		fi
+		if [ $file != 'M' ] && [ $file != 'A' ] && [ $file != 'D' ]; then
+			echo "$file"
+		fi
 	done
 	echo -e "@-----------------------@\n" $RESET
 	echo -e $RED"@_______Not Staged______@"
+	modified=false
+	added=false
+	deleted=false
+	untracked=false
 	for file in $unstaged; do
-		echo "$file"
+		if [ $file == 'M' ] && ! $modified; then
+			modified=true
+			echo "M"
+			continue
+		fi
+		if [ $file == '??' ] && ! $untracked; then
+			untracked=true
+			echo "??"
+			continue
+		fi
+		if [ $file == 'D' ] && ! $deleted; then
+			deleted=true
+			echo "D"	 
+			continue
+		fi
+		if [ $file != 'M' ] && [ $file != '??' ] && [ $file != 'D' ]; then
+			echo "$file"
+		fi
 	done
 	echo -e "@-----------------------@\n" $RESET
 	echo -e $YELLOW"do you want to push these updates?\n(y / q / [filename] : to unstage / a [filename] : to stage / c : undo / s : stop with commit)"$WHITE
