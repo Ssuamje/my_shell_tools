@@ -84,4 +84,4 @@ done
 git commit -m "$message"
 
 #get current working branch
-$RESET git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
+echo -n $RESET; git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
