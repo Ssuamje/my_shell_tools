@@ -40,26 +40,20 @@ deleted=$(git status --porcelain | grep -E '(^ D|^D)' | cut -c 4-)
 untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
 
 if $direct; then
-	echo -e $GREEN"@___Added___@"
+	echo -e $GREEN"@___Will be committed___@"
 	for file in $added; do
 		echo "$file"
 	done
-	echo -e "@-----------@\n" $RESET
-	echo -e $RED"@___Modified___@"
 	for file in $modified; do
 		echo "$file"
 	done
-	echo -e "@--------------@\n" $RESET
-	echo -e $RED"@___Untracked___@"
 	for file in $untracked; do
 		echo "$file"
 	done
-	echo -e "@---------------@\n" $RESET
-	echo -e $RED"@___Deleted___@"
 	for file in $deleted; do
 		echo "$file"
 	done
-	echo -e "@--------------@\n" $RESET
+	echo -e "@-----------------------@\n" $RESET
 	echo -e $PURPLE"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
