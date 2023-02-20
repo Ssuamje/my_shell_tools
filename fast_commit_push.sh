@@ -8,10 +8,39 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
+quiet=false
+message=""
 
-if [ -z "$1" ]; then
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -q)
+      quiet=true
+      shift
+      ;;
+    *)
+      message="$1"
+      shift
+      break
+      ;;
+  esac
+done
+
+
+if [ -z "$message" ]; then
 	echo -e $RED"You should enter commit message to first argument." $RESET
 	exit 1
+fi
+
+if $quiet; then
+	echo -e $CYAN"Committing and pushing directly.."$YELLOW
+	cd $(git rev-parse --show-toplevel)
+	git add .
+	cd -
+	echo -e -n $YELLOW"Commit : "
+	git commit -m "$message" | sed -n '2p'
+	echo -e -n $YELLOW"Push : "
+	git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
+	exit 0
 fi
 
 #check git status
