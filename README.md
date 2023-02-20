@@ -7,15 +7,15 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ssuamje/my_git_tools/mai
 ```
 
 ### 사용 흐름 예시
- ![Feb-20-2023 17-51-27](https://user-images.githubusercontent.com/105692206/220065923-0e1b4e46-d970-4089-9361-f73d91081368.gif)
-
-### 구체적인 사용법
 Usage : gfc [-d : direct] <commit_string>
 <br>
 gfc는 git fast commit을 의미합니다.
 <br>
 -d 옵션을 통해, 현재 브랜치의 모든 작업사항을 <commit_string>을 커밋 메시지로 설정, push합니다.
 <br>
+ ![Feb-20-2023 17-51-27](https://user-images.githubusercontent.com/105692206/220065923-0e1b4e46-d970-4089-9361-f73d91081368.gif)
+
+### 구체적인 사용법
 -d 옵션을 넣지 않았다면, 다음과 같이 작동합니다.
 <br>
 
