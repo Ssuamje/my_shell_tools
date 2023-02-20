@@ -1,7 +1,15 @@
 # my_git_tools
 커밋 메시지를 입력하고, stage, unstage로 현재 브랜치에 push하는 프로그램.
 
-### 사용법
+### download
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ssuamje/my_git_tools/main/download.sh)"
+```
+
+### 사용 흐름 예시
+ ![Feb-20-2023 17-51-27](https://user-images.githubusercontent.com/105692206/220065923-0e1b4e46-d970-4089-9361-f73d91081368.gif)
+
+### 구체적인 사용법
 Usage : gfc [-d : direct] <commit_string>
 <br>
 gfc는 git fast commit을 의미합니다.
@@ -29,10 +37,4 @@ gfc는 git fast commit을 의미합니다.
 <br>
 <br>
 
-### 사용 흐름 예시
- ![Feb-20-2023 17-51-27](https://user-images.githubusercontent.com/105692206/220065923-0e1b4e46-d970-4089-9361-f73d91081368.gif)
 
-### download
-```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ssuamje/my_git_tools/main/download.sh)"
-```
