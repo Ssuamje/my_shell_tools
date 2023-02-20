@@ -165,7 +165,7 @@ while true; do
 	elif [ "$answer" == "n" ]; then
 		clear
 		echo -e $YELLOW"Cancelling commit..."$WHITE
-		git restore --staged *
+		git reset | echo -n ""
 		exit 0;
 	else
 		echo "Invalid input. please enter y or n."
