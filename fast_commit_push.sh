@@ -21,21 +21,34 @@ if [[ "$1" =~ ^-.* ]] && [ "$1" != "-d" ]; then
   exit 1
 fi
 
-while [ $# -gt 0 ]; do
-  case "$1" in
+# while [ $# -gt 0 ]; do
+#   case "$1" in
+#     -d)
+#       direct=true
+#       shift
+#       ;;
+#     *)
+#       message="$1"
+#       shift
+#       break
+#       ;;
+#   esac
+# done
+
+for i in "$@"; do
+  case $i in
     -d)
       direct=true
-      shift
       ;;
     *)
-      message="$1"
-      shift
-      break
+      if [ -z "$message" ]; then
+	  	message="$i"
+	  fi
       ;;
   esac
 done
 
-if [ -z "$" ]; then
+if [ -z "$message" ]; then
 	echo -e $RED"You should enter commit message to first argument." $RESET
 	exit 1
 fi
