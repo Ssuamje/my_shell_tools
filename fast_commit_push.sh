@@ -38,10 +38,10 @@ if $direct; then
 	echo -e $RED"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
-	cd -
+	cd - | echo -n ""
 	echo -e -n $YELLOW"Commit : "
 	git commit -m "$message" | sed -n '2p'
-	echo -e -n $YELLOW"\nPush : \n"
+	echo -e -n $YELLOW"\nPush : "
 	git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 	exit 0
 fi
