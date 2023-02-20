@@ -41,7 +41,6 @@ while true; do
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
-		echo -e "Continuing..."
 		break
 	elif [ "$answer" == "n" ]; then
 		echo -e "Exiting..."
@@ -69,7 +68,6 @@ while true; do
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
 		clear
-		echo -e "Pushing..." $RESET
 		break
 	elif [ "$answer" == "n" ]; then
 		clear
@@ -81,7 +79,7 @@ while true; do
 done
 
 #set commit message
-echo -e -n $CYAN"Commit : "$YELLOW
+echo -e -n $YELLOW"Commit : "
 git commit -m "$message" | sed -n '2p'
 
 #get current working branch
