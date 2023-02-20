@@ -152,7 +152,7 @@ while true; do
 	done
 	echo -e "@-----------------------@\n" $RESET
 	echo -e $YELLOW"do you want to push these updates?\n(y / q / [filename] : to unstage / a [filename] : to stage / c : undo / s : stop with commit)"$WHITE
-	read answer
+	read -e answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
@@ -171,9 +171,9 @@ while true; do
 		clear
 	elif [ "$answer" == "s" ]; then
 		clear
-		git commit -m "$message"
-		echo -e $YELLOW"Stopping with staged commit..."$RESET
-		exit 1
+		echo -e $YELLOW"Stopping with staged commit..."
+		git commit -m "$message" | sed -n '2p'
+		exit 0
 	else
 		prev=$answer
 		git restore --staged $answer
@@ -181,10 +181,8 @@ while true; do
 	fi
 done
 
-
 echo -e -n $YELLOW"Commit : "$WHITE
 git commit -m "$message" | sed -n '2p'
-
 
 #get current working branch
 echo -e -n $YELLOW"Push : "$WHITE
