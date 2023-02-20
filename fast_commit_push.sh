@@ -81,8 +81,10 @@ while true; do
 done
 
 #set commit message
-echo -e "Commit : $(git commit -m "$message" | sed '2p')"
+echo -e -n $CYAN"Commit : "$YELLOW
+git commit -m "$message" | sed -n '2p'
 
 #get current working branch
+echo -e -n $CYAN"Push : "
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 git remote update
