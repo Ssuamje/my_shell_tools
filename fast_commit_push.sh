@@ -10,7 +10,7 @@ RESET='\033[0m'
 
 
 if [ -z "$1" ]; then
-	echo -e $RED "You should enter commit message to first argument." $RESET
+	echo -e $RED"You should enter commit message to first argument." $RESET
 	exit 1
 fi
 
@@ -20,7 +20,7 @@ while true; do
 	added=$(git status --porcelain | grep -E '^A' | cut -c 4-)
 	modified=$(git status --porcelain | grep -E '^ M' | cut -c 4-)
 	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
-	echo -e $GREEN "@___Added___@"
+	echo -e $GREEN"@___Added___@"
 	for file in $added; do
 		echo "$file"
 	done
@@ -36,7 +36,7 @@ while true; do
 	done
 	echo -e "@---------------@\n" $RESET
 
-	echo -e $YELLOW "Want to update all changes to current branch? (y/n)"
+	echo -e $CYAN"Want to update all changes to current branch? (y/n)"
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -62,8 +62,8 @@ cd -
 message=$1
 while true; do
 	clear
-	echo "Message : \"$message\""
-	echo "is it right? (y/n)"
+	echo -e $YELLOW"Message : \"$message\""
+	echo -e $CYAN"is it right? (y/n)"
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
