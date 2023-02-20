@@ -35,6 +35,24 @@ if [ -z "$message" ]; then
 fi
 
 if $direct; then
+	added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
+	modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
+	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
+	echo -e $GREEN"@___Added___@"
+	for file in $added; do
+		echo "$file"
+	done
+	echo -e "@-----------@\n" $RESET
+	echo -e $RED"@___Modified___@"
+	for file in $modified; do
+		echo "$file"
+	done
+	echo -e "@--------------@\n" $RESET
+	echo -e $RED"@___Untracked___@"
+	for file in $untracked; do
+		echo "$file"
+	done
+	echo -e "@---------------@\n" $RESET
 	echo -e $RED"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
