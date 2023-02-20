@@ -69,6 +69,7 @@ clear
 while true; do
 	added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
 	modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
+	deleted=$(git status --porcelain | grep -E '(^ D|^D)' | cut -c 4-)
 	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
 	echo -e $GREEN"@___Added___@"
 	for file in $added; do
@@ -85,6 +86,11 @@ while true; do
 		echo "$file"
 	done
 	echo -e "@---------------@\n" $RESET
+	echo -e $RED"@___Deleted___@"
+	for file in $deleted; do
+		echo "$file"
+	done
+	echo -e "@--------------@\n" $RESET
 
 	echo -e $YELLOW"Want to update all changes to current branch? (y/n)"$WHITE
 	read answer
@@ -134,4 +140,4 @@ git commit -m "$message" | sed -n '2p'
 
 #get current working branch
 echo -e -n $WHITE"Push : "
-git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
+git push $(git remote | sed -n '1p') $(git branch | grep \* | awk '{ print $2 }')
