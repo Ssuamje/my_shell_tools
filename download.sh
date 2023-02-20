@@ -5,7 +5,7 @@ FILE="fast_commit_push.sh"
 FILE_HIDDEN=".fast_commit_push.sh"
 MY_ALIAS="gfc"
 
-git clone git@github.com:$GIT || git clone $GIT_HTTPS/$GIT
+git clone $GIT_HTTPS/$GIT || git clone git@github.com:$GIT
 
 #make file hidden
 mv $REPO/$FILE $HOME
