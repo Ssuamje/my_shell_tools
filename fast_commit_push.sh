@@ -82,7 +82,9 @@ done
 
 #set commit message
 git commit -m "$message"
+echo -e -n "$GREEN"
 
 #get current working branch
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 git remote update
+echo -e -n "$RESET"
