@@ -151,7 +151,7 @@ done
 for file in $deleted; do
 	echo "$file"
 done
-echo -e "@-----------@\n" $RESET
+echo -e "@-----------------------@\n" $RESET
 
 #check user's decision
 while true; do
