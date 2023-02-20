@@ -8,7 +8,9 @@ git clone git@github.com:$GIT
 
 #make file hidden
 mv $REPO/$FILE $HOME
-mv $HOME/$FILE $HOME/$FILE_HIDDEN
+cd $HOME
+mv $FILE $FILE_HIDDEN
+cd -
 rm -rf $REPO
 
 SRC="$HOME/.zshrc"
