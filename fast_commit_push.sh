@@ -141,12 +141,12 @@ while true; do
 
 	staged=$(git status --porcelain | grep -E '(^A|^M|^D)' | cut -c 4-)
 	unstaged=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | cut -c 4-)
-	echo -e $GREEN"@___Staged___@"
+	echo -e $GREEN"@________Staged________@"
 	for file in $staged; do
 		echo "$file"
 	done
 	echo -e "@-----------------------@\n" $RESET
-	echo -e $RED"@___Not Staged___@"
+	echo -e $RED"@_______Not Staged______@"
 	for file in $unstaged; do
 		echo "$file"
 	done

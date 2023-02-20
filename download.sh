@@ -6,7 +6,8 @@ MY_ALIAS="gfc"
 git clone git@github.com:$GIT
 
 #make file hidden
-mv $REPO/.$FILE $HOME
+mv $REPO/$FILE $HOME
+mv $HOME/$FILE $HOME/.$FILE
 rm -rf $REPO
 
 SRC="$HOME/.zshrc"
