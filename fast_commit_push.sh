@@ -16,25 +16,6 @@ if [ $# -gt 2 ] || [ $# -eq 0 ]; then
 	exit 1
 fi
 
-if [[ "$1" =~ ^-.* ]] && [ "$1" != "-d" ]; then
-  echo -e "\"$1\" is invalid option : [-d] is direct option."
-  exit 1
-fi
-
-# while [ $# -gt 0 ]; do
-#   case "$1" in
-#     -d)
-#       direct=true
-#       shift
-#       ;;
-#     *)
-#       message="$1"
-#       shift
-#       break
-#       ;;
-#   esac
-# done
-
 for i in "$@"; do
   case $i in
     -d)
