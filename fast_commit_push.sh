@@ -36,7 +36,7 @@ while true; do
 	done
 	echo -e "@---------------@\n" $RESET
 
-	echo -e $CYAN"Want to update all changes to current branch? (y/n)"
+	echo -e $CYAN"Want to update all changes to current branch? (y/n)"$YELLOW
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -62,7 +62,7 @@ message=$1
 while true; do
 	clear
 	echo -e $YELLOW"Message : \"$message\""
-	echo -e $CYAN"is it right? (y/n)"
+	echo -e $CYAN"is it right? (y/n)"$YELLOW
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -83,6 +83,6 @@ echo -e -n $YELLOW"Commit : "
 git commit -m "$message" | sed -n '2p'
 
 #get current working branch
-echo -e -n $CYAN"Push : "
+echo -e -n $YELLOW"Push : "
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 git remote update
