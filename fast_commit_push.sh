@@ -41,13 +41,13 @@ if [ -z "$" ]; then
 fi
 
 if $direct; then
-	echo -e $RED"Committing and pushing directly.."$WHITE
+	echo -e $RED"Committing and pushing directly.."$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
 	cd -
-	echo -e -n $WHITE"Commit : "
+	echo -e -n $YELLOW"Commit : "
 	git commit -m "$message" | sed -n '2p'
-	echo -e -n $WHITE"Push : "
+	echo -e -n $YELLOW"Push : "
 	git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 	exit 0
 fi
