@@ -34,10 +34,12 @@ if [ -z "$message" ]; then
 	exit 1
 fi
 
+added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
+modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
+deleted=$(git status --porcelain | grep -E '(^ D|^D)' | cut -c 4-)
+untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
+
 if $direct; then
-	added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
-	modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
-	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
 	echo -e $GREEN"@___Added___@"
 	for file in $added; do
 		echo "$file"
@@ -53,6 +55,11 @@ if $direct; then
 		echo "$file"
 	done
 	echo -e "@---------------@\n" $RESET
+	echo -e $RED"@___Deleted___@"
+	for file in $deleted; do
+		echo "$file"
+	done
+	echo -e "@--------------@\n" $RESET
 	echo -e $PURPLE"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
@@ -67,10 +74,6 @@ fi
 #check git status
 clear
 while true; do
-	added=$(git status --porcelain | grep -E '(^ A|^A)' | cut -c 4-)
-	modified=$(git status --porcelain | grep -E '(^ M|^M)' | cut -c 4-)
-	deleted=$(git status --porcelain | grep -E '(^ D|^D)' | cut -c 4-)
-	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
 	echo -e $GREEN"@___Added___@"
 	for file in $added; do
 		echo "$file"
