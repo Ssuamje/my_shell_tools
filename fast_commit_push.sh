@@ -138,8 +138,7 @@ while true; do
 done
 
 #set commit message
-echo -e $YELLOW"Committed files : "
-echo -e $GREEN"@___Added___@"
+echo -e $GREEN"@___Committed___@"
 for file in $added; do
 	echo "$file"
 done
