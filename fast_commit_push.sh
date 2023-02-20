@@ -81,7 +81,7 @@ while true; do
 done
 
 #set commit message
-git commit -m "$message"
+echo -e "Commit : $(git commit -m "$message" | sed '2p')"
 
 #get current working branch
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
