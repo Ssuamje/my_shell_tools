@@ -43,10 +43,10 @@ while true; do
 	if [ "$answer" == "y" ]; then
 		break
 	elif [ "$answer" == "n" ]; then
-		echo -e "Exiting..."
+		echo -e $CYAN"Exiting..."
 		exit 0
 	else
-		echo "Invalid input. Please enter 'y' or 'n'." $RESET
+		echo $CYAN"Invalid input. Please enter 'y' or 'n'." $RESET
 	fi
 done
 
