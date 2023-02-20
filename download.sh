@@ -5,7 +5,8 @@ MY_ALIAS="gfc"
 
 git clone git@github.com:$GIT
 
-mv $REPO/$FILE $HOME
+#make file hidden
+mv $REPO/.$FILE $HOME
 rm -rf $REPO
 
 SRC="$HOME/.zshrc"
@@ -19,7 +20,7 @@ fi
 
 if [ $(cat $SRC | grep "$FILE" | wc -l) -eq 0 ] 
 then
-	echo -e "\nalias $MY_ALIAS=\"bash $HOME/$FILE\"" >> "$SRC"
+	echo -e "\nalias $MY_ALIAS=\"bash $HOME/.$FILE\"" >> "$SRC"
 fi
 
 exec "$SHELL"
