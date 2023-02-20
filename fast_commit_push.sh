@@ -1,26 +1,53 @@
 #!/bin/bash
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+RESET='\033[0m'
+
 
 if [ -z "$1" ]; then
-	echo "You should enter commit message to first argument."
+	echo -e $RED "You should enter commit message to first argument." $RESET
 	exit 1
 fi
 
 #check git status
+clear
 while true; do
-	clear
-	git status
-	echo "Do you want to push all changes to current branch? (y/n)"
+	added=$(git status --porcelain | grep -E '^A' | cut -c 4-)
+	modified=$(git status --porcelain | grep -E '^ M' | cut -c 4-)
+	untracked=$(git status --porcelain | grep -E '^\?\?' | cut -c 4-)
+	echo -e $GREEN "@___Added___@"
+	for file in $added; do
+		echo "$file"
+	done
+	echo -e "@-----------@\n" $RESET
+	echo -e $RED"@___Modified___@"
+	for file in $modified; do
+		echo "$file"
+	done
+	echo -e "@--------------@\n" $RESET
+	echo -e $RED"@___Untracked___@"
+	for file in $untracked; do
+		echo "$file"
+	done
+	echo -e "@---------------@\n" $RESET
+
+	echo -e $YELLOW "Want to update all changes to current branch? (y/n)"
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
-		echo "Continuing..."
+		echo -e "Continuing..."
 		break
 	elif [ "$answer" == "n" ]; then
-		echo "Exiting..."
+		echo -e "Exiting..."
 		exit 0
 	else
-		echo "Invalid input. please enter y or n."
+		echo "Invalid input. Please enter 'y' or 'n'." $RESET
 	fi
 done
 
@@ -41,9 +68,11 @@ while true; do
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
-		echo "Continuing..."
+		clear
+		echo "Pushing..."
 		break
 	elif [ "$answer" == "n" ]; then
+		clear
 		echo "Input commit message you want to change."
 		read message
 	else
