@@ -69,7 +69,7 @@ while true; do
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
 		clear
-		echo "Pushing..."
+		echo -e "Pushing..." $RESET
 		break
 	elif [ "$answer" == "n" ]; then
 		clear
@@ -84,4 +84,4 @@ done
 git commit -m "$message"
 
 #get current working branch
-echo -n -e $RESET; git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
+git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
