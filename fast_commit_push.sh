@@ -181,10 +181,10 @@ while true; do
 done
 
 
-echo -e -n $WHITE"Commit : "
+echo -e -n $YELLOW"Commit : "$WHITE
 git commit -m "$message" | sed -n '2p'
 
 
 #get current working branch
-echo -e -n $WHITE"Push : "
+echo -e -n $YELLOW"Push : "$WHITE
 git push $(git remote | sed -n '1p') $(git branch | grep \* | awk '{ print $2 }')
