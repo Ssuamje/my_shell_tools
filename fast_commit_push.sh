@@ -135,8 +135,24 @@ while true; do
 done
 
 #set commit message
+echo -e $YELLOW"Committed files : "
+echo -e $GREEN"@___Added___@"
+	for file in $added; do
+		echo "$file"
+	done
+	for file in $modified; do
+		echo "$file"
+	done
+	for file in $untracked; do
+		echo "$file"
+	done
+	for file in $deleted; do
+		echo "$file"
+	done
+echo -e "@-----------@\n" $RESET
 echo -e -n $WHITE"Commit : "
 git commit -m "$message" | sed -n '2p'
+
 
 #get current working branch
 echo -e -n $WHITE"Push : "
