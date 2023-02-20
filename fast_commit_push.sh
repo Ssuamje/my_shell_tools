@@ -85,3 +85,4 @@ git commit -m "$message"
 
 #get current working branch
 git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
+git remote update
