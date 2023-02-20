@@ -35,13 +35,13 @@ if [ -z "$message" ]; then
 fi
 
 if $direct; then
-	echo -e $RED"Committing and pushing directly.."$YELLOW
+	echo -e $RED"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
 	cd -
 	echo -e -n $YELLOW"Commit : "
 	git commit -m "$message" | sed -n '2p'
-	echo -e -n $YELLOW"Push : "
+	echo -e -n $YELLOW"\nPush : \n"
 	git push $(git remote) $(git branch | grep \* | awk '{ print $2 }')
 	exit 0
 fi
