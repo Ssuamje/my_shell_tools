@@ -53,7 +53,7 @@ if $direct; then
 		echo "$file"
 	done
 	echo -e "@---------------@\n" $RESET
-	echo -e $RED"Committing and pushing directly..\n"$YELLOW
+	echo -e $PURPLE"Committing and pushing directly..\n"$YELLOW
 	cd $(git rev-parse --show-toplevel)
 	git add .
 	cd - | echo -n ""
