@@ -21,7 +21,7 @@ fi
 
 if [ $(cat $SRC | grep "$FILE" | wc -l) -eq 0 ] 
 then
-	echo -e "\nalias $MY_ALIAS=\"bash $HOME/.$FILE\"" >> "$SRC"
+	echo -e "\nalias $MY_ALIAS=\"bash $HOME/.$FILE" >> "$SRC"
 fi
 
 exec "$SHELL"
