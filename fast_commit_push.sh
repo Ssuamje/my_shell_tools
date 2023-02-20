@@ -137,8 +137,8 @@ while true; do
 	fi
 done
 
-#set commit message
-echo -e $GREEN"@___Committed___@"
+#show files to be committed
+echo -e $GREEN"@___Will be committed___@"
 for file in $added; do
 	echo "$file"
 done
@@ -152,6 +152,24 @@ for file in $deleted; do
 	echo "$file"
 done
 echo -e "@-----------@\n" $RESET
+
+#check user's decision
+while true; do
+	echo -e $YELLOW"do you want to push these updates? (y/n)"$WHITE
+	read answer
+
+	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
+	if [ "$answer" == "y" ]; then
+		clear
+		break
+	elif [ "$answer" == "n" ]; then
+		clear
+		echo -e $YELLOW"Cancelling commit..."$WHITE
+		exit 0;
+	else
+		echo "Invalid input. please enter y or n."
+	fi
+done
 echo -e -n $WHITE"Commit : "
 git commit -m "$message" | sed -n '2p'
 
