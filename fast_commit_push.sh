@@ -173,7 +173,7 @@ while true; do
 		clear
 		git commit -m "$message"
 		echo -e $YELLOW"Stopping with staged commit..."$RESET
-		exit 0
+		exit 1
 	else
 		prev=$answer
 		git restore --staged $answer
