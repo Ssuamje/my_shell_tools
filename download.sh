@@ -1,11 +1,11 @@
 GIT="Ssuamje/my_git_tools.git"
-GIT_HTTPS=https://github.com/Ssuamje/my_git_tools.git
+GIT_HTTPS=https://github.com
 REPO="my_git_tools"
 FILE="fast_commit_push.sh"
 FILE_HIDDEN=".fast_commit_push.sh"
 MY_ALIAS="gfc"
 
-git clone git@github.com:$GIT || git clone git@github.com:$GIT_HTTPS
+git clone git@github.com:$GIT || git clone $GIT_HTTPS/$GIT
 
 #make file hidden
 mv $REPO/$FILE $HOME
