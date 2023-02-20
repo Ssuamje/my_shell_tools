@@ -139,39 +139,48 @@ cd -
 #check user's decision
 while true; do
 
-	will_added=$(git status --porcelain | grep -E '(^A|^M|^D)' | cut -c 4-)
-	not_added=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | cut -c 4-)
+	staged=$(git status --porcelain | grep -E '(^A|^M|^D)' | cut -c 4-)
+	unstaged=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | cut -c 4-)
 	echo -e $GREEN"@___Staged___@"
-	for file in $will_added; do
+	for file in $staged; do
 		echo "$file"
 	done
 	echo -e "@-----------------------@\n" $RESET
 	echo -e $RED"@___Not Staged___@"
-	for file in $not_added; do
+	for file in $unstaged; do
 		echo "$file"
 	done
 	echo -e "@-----------------------@\n" $RESET
-	echo -e $YELLOW"do you want to push these updates? (y/n/q to quit)"$WHITE
+	echo -e $YELLOW"do you want to push these updates?\n(y / q / [filename] : to unstage / a [filename] : to stage / c : undo / s : stop with commit)"$WHITE
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
 	if [ "$answer" == "y" ]; then
 		clear
 		break
-	elif [ "$answer" == "n" ]; then
-		echo -e $YELLOW"Input file you want to unstage."$WHITE
-		read to_unstage
-		git restore --staged $to_unstage
-		clear
 	elif [ "$answer" == "q" ]; then
 		clear
 		echo -e $YELLOW"Cancelling commit..."$WHITE
 		git reset | echo -n ""
 		exit 0;
+	elif [ $(echo "$answer" | awk '{ print $1 }') == "a" ]; then
+		git add $(echo "$answer" | awk '{ print $2 }') | grep noting
+		clear
+	elif [ "$answer" == "c" ]; then
+		git add $prev | grep noting
+		clear
+	elif [ "$answer" == "s" ]; then
+		clear
+		echo -e $YELLOW"Stopping with staged commit..."$RESET
+		exit 0
 	else
-		echo "Invalid input. please enter y or n."
+		prev=$answer
+		git restore --staged $answer
+		clear
 	fi
 done
+
+
 echo -e -n $WHITE"Commit : "
 git commit -m "$message" | sed -n '2p'
 
