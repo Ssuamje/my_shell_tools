@@ -103,19 +103,12 @@ while true; do
 	fi
 done
 
-#move to git root directory
-cd $(git rev-parse --show-toplevel)
-
-#add all changes
-git add .
-cd -
-
 #check commit message
 message=$1
 while true; do
 	clear
 	echo -e $WHITE"Message : \"$message\""
-	echo -e $YELLOW"is it right? (y/n)"$WHITE
+	echo -e $YELLOW"is it right? (y/n/q to quit)"$WHITE
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -126,30 +119,39 @@ while true; do
 		clear
 		echo -e $YELLOW"Input commit message you want to change."$WHITE
 		read message
+	elif [ "$answer" == "q" ]; then
+		clear
+		echo -e $YELLOW"Exiting..."$WHITE
+		exit 0
 	else
 		echo "Invalid input. please enter y or n."
 	fi
 done
 
-#show files to be committed
-echo -e $GREEN"@___Will be committed___@"
-for file in $added; do
-	echo "$file"
-done
-for file in $modified; do
-	echo "$file"
-done
-for file in $untracked; do
-	echo "$file"
-done
-for file in $deleted; do
-	echo "$file"
-done
-echo -e "@-----------------------@\n" $RESET
+
+#move to git root directory
+cd $(git rev-parse --show-toplevel)
+
+#add all changes
+git add .
+cd -
 
 #check user's decision
 while true; do
-	echo -e $YELLOW"do you want to push these updates? (y/n)"$WHITE
+
+	will_added=$(git status --porcelain | grep -E '(^A|^M|^D)' | cut -c 4-)
+	not_added=$(git status --porcelain | grep -Ev '(^A|^M|^D)' | cut -c 4-)
+	echo -e $GREEN"@___Staged___@"
+	for file in $will_added; do
+		echo "$file"
+	done
+	echo -e "@-----------------------@\n" $RESET
+	echo -e $RED"@___Not Staged___@"
+	for file in $not_added; do
+		echo "$file"
+	done
+	echo -e "@-----------------------@\n" $RESET
+	echo -e $YELLOW"do you want to push these updates? (y/n/q to quit)"$WHITE
 	read answer
 
 	answer="$(echo "${answer}" | tr '[:upper:]' '[:lower:]')"
@@ -157,6 +159,11 @@ while true; do
 		clear
 		break
 	elif [ "$answer" == "n" ]; then
+		echo -e $YELLOW"Input file you want to unstage."$WHITE
+		read to_unstage
+		git restore --staged $to_unstage
+		clear
+	elif [ "$answer" == "q" ]; then
 		clear
 		echo -e $YELLOW"Cancelling commit..."$WHITE
 		git reset | echo -n ""
