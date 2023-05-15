@@ -1,4 +1,4 @@
-# my_git_tools
+# fast_commit_push
 커밋 메시지를 입력하고, stage, unstage로 현재 브랜치에 push하는 프로그램.
 
 ### download
