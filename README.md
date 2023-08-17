@@ -1,6 +1,8 @@
 # fast_commit_push
 커밋 메시지를 입력하고, stage, unstage로 현재 브랜치에 push하는 프로그램.
 
+# 입니다만 안전한 커밋을 위해서 사용하지 않기로 했습니다..
+
 ### download
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ssuamje/my_git_tools/main/download.sh)"
